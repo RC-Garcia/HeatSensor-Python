@@ -1,0 +1,26 @@
+import RPi.GPIO as GPIO
+import time
+
+# Set up GPIO
+GPIO.setmode(GPIO.BCM)
+heat_sensor_pin = 17  # Replace with the actual GPIO pin you are using
+GPIO.setup(heat_sensor_pin, GPIO.IN)
+
+def read_heat_sensor():
+    return GPIO.input(heat_sensor_pin)
+
+try:
+    while True:
+        heat_value = read_heat_sensor()
+
+        if heat_value == GPIO.HIGH:
+            print("Heat detected!")
+        else:
+            print("No heat detected.")
+
+        time.sleep(1)
+
+except KeyboardInterrupt:
+    print("Program terminated by user.")
+finally:
+    GPIO.cleanup()
